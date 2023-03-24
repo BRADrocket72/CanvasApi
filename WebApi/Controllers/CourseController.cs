@@ -6,12 +6,9 @@ namespace WebApi.Controllers;
 [Route("[controller]")]
 public class CourseController : ControllerBase
 {
-
-    private readonly ILogger<CourseController> _logger;
-
-    public CourseController(ILogger<CourseController> logger)
+    public CourseController()
     {
-        _logger = logger;
+        
     }
     private static Module module1 = new Module { Id = new Guid("848dec41-eae4-4624-a02a-fde56948d6ae"), Name = "module1" };
     private static Course course1 = new Course { Id = new Guid("b5d81570-9d7d-42d4-b352-633b8e946fba"), Name = "course1", Modules = new List<Module> { module1 } };

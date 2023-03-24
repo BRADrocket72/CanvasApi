@@ -7,11 +7,8 @@ namespace WebApi.Controllers;
 public class ModuleController : ControllerBase
 {
 
-    private readonly ILogger<ModuleController> _logger;
-
-    public ModuleController(ILogger<ModuleController> logger)
+    public ModuleController()
     {
-        _logger = logger;
     }
     private static Assignment assignment1 = new Assignment { Id = new Guid("7758e920-5e0f-4cf2-9b35-d76c1a1c3bbe"), Name = "homework", DueDate = DateTime.Now, Grade = 90 };
     private static Assignment assignment2 = new Assignment { Id = new Guid("1158e920-5e0f-4cf2-9b35-d76c1a1c3b33"), Name = "homework2", DueDate = DateTime.Now, Grade = 85 };
