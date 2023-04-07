@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Model;
+
 
 namespace WebApi.Controllers;
 
@@ -6,39 +8,36 @@ namespace WebApi.Controllers;
 [Route("[controller]")]
 public class AssignmentController : ControllerBase
 {
-
-    public AssignmentController()
+    private readonly IAssignmentRepository assignmentRepository;
+    public AssignmentController(IAssignmentRepository assignmentRepository)
     {
+        this.assignmentRepository = assignmentRepository;
     }
-    private static Assignment assignment1 = new Assignment { Id = new Guid("7758e920-5e0f-4cf2-9b35-d76c1a1c3bbe"), Name = "homework", DueDate = DateTime.Now, Grade = 90 };
-    private static Assignment assignment2 = new Assignment { Id = new Guid("1158e920-5e0f-4cf2-9b35-d76c1a1c3b33"), Name = "homework2", DueDate = DateTime.Now, Grade = 85 };
-    private static List<Assignment> allAssignments = new List<Assignment> { assignment1, assignment2 };
+
 
     [HttpGet()]
     public IEnumerable<Assignment> GetAll()
     {
-        return allAssignments;
+        return assignmentRepository.GetAssignments();
     }
 
     [HttpGet("/{assignmentId}")]
     public Assignment GetAssignment(Guid assignmentId)
     {
-        return allAssignments.Find(x => x.Id == assignmentId);
+        Assignment assignment = assignmentRepository.GetAssignment(assignmentId);
+        return assignment;
     }
 
     [HttpPost]
     public Assignment CreateAssignment([FromBody] Assignment assignment)
     {
-        allAssignments.Add(assignment);
-        return assignment;
+        return assignmentRepository.CreateAssignment(assignment);
     }
 
     [HttpPut]
     public Assignment UpdateAssignment([FromBody] Assignment assignment)
     {
-        allAssignments.Remove(assignment);
-        allAssignments.Add(assignment);
-        return assignment;
+        return assignmentRepository.UpdateAssignment(assignment);
     }
 
 }
